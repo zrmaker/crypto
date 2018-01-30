@@ -41,6 +41,7 @@ class nanopool():
         else:
             req=urllib.request.Request(self.head+ticker+'/hashratechart/'+self.pasc_address, headers = self.agent)
         ss = self.read(req)
+        print(ss)
         return ss["data"]
     
     def history(self, ticker):
@@ -50,6 +51,7 @@ class nanopool():
         else:
             req=urllib.request.Request(self.head+ticker+'/history/'+self.pasc_address, headers = self.agent)
         ss = self.read(req)
+        print(ss)
         return ss["data"]
     
     def plot_chart(self, ticker):
@@ -72,10 +74,20 @@ class nanopool():
         hr2=np.flip(hr2,0)
         mahr=self.TI.MAlist(hr2,12)
         # print(len(t),len(shares),len(hr))
-        f,(ax1,ax2)=plt.subplots(2,1)
-        ax1.plot(t[-72:],hr[-72:],t2[-72:],hr2[-72:],t2[-72:],mahr[-72:])
+        f,(ax1,ax2)=plt.subplots(2,1,figsize=(20, 8))
+        if ticker == 'eth':
+            print(hr2[-72:], mahr[-72:])
+            print(t[-72:], t2[-72:])
+            ax1.plot(t[-72:],hr[-72:],t2[-72:],hr2[-72:],t2[-72:],mahr[-72:])
+        else:
+            print(hr2[-72:],mahr[-72:])
+            print(t[-72:],t2[-72:])
+            ax1.plot(hr2[-72:])
+            ax1.plot(mahr[-72:])
         ax2.bar(t[-72:],shares[-72:])
+        plt.setp(ax1.xaxis.get_majorticklabels(), rotation=45)
+        plt.setp(ax2.xaxis.get_majorticklabels(), rotation=45)
         plt.show()
         
 if __name__ == '__main__':
-    print(nanopool().plot_chart('eth'))
+    print(nanopool().plot_chart('pasc'))
