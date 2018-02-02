@@ -168,7 +168,7 @@ class technical_indicators():
         for i in range(self.DMI_param+self.ADX_param,len(adj_close)):
             print(i)
             adx_list = np.append(adx_list, ((self.ADX_param-1)*adx_list[i-1]+dx[i])/self.ADX_param)
-        return adx_list.tolist()
+        return adx_list.tolist(), di14p.tolist(), di14n.tolist()
 
     def PVT(self, adj_close, volume):
         '''
