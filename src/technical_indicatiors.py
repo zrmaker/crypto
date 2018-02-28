@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-class technical_indicators():
+class technical_indicators:
     def __init__(self):
         self.alpha = .35
         self.BBands_param = [20, 2]
